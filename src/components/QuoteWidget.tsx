@@ -153,8 +153,15 @@ function JournalIcon1() {
 
 export function QuoteWidget() {
   return (
-    <div className="opacity-[0.77] relative size-full" data-name="Journal">
-      <div className="absolute bg-[rgba(0,0,0,0)] left-1/2 overflow-clip rounded-[18.967px] size-[136.215px] top-0 translate-x-[-50%]" data-name="Widget Container">
+    <div className="relative size-full" data-name="Journal">
+      <div 
+        className="absolute left-1/2 overflow-clip rounded-[18.967px] size-[136.215px] top-0 translate-x-[-50%] border border-white/30 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]" 
+        style={{ 
+          backdropFilter: 'blur(50px)',
+          WebkitBackdropFilter: 'blur(50px)',
+          backgroundColor: 'rgba(255, 255, 255, 0.25)'
+        }}
+        data-name="Widget Container">
         <IconButton />
         <PrimaryButton />
         <p className="-webkit-box absolute bg-clip-text bg-gradient-to-r font-['SF_Pro_Text:Regular',sans-serif] from-[#464bc3] leading-[19.829px] left-[12.93px] not-italic overflow-ellipsis overflow-hidden right-[12.07px] text-[14.225px] to-[#00056b] to-[93.789%] top-[calc(50%-30.17px)] tracking-[-0.2586px]" style={{ WebkitTextFillColor: "transparent" }}>

@@ -25,44 +25,42 @@ export default function App() {
       {/* Main Content - Matching original Mac1 proportions */}
       <div className="relative w-[1920px] h-[1080px] scale-[0.8] origin-center">
         {/* Profile Widget - Top left with 5px padding */}
-        <div className="absolute flex h-[218.978px] items-center justify-center left-[5px] top-[5px] w-[407.782px]">
+        <div style={{ position: 'absolute', top: '5px', left: '-100px', width: '407.782px', height: '218.978px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <ProfileWidget />
         </div>
 
         {/* Files/Projects Widget - Below Profile (bento grid) */}
-        <div className="absolute flex h-[189.008px] items-center justify-center left-[5px] top-[235px] w-[404.334px]">
+        <div style={{ position: 'absolute', top: '235px', left: '-100px', width: '404.334px', height: '189.008px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <FilesWidget />
         </div>
 
         {/* Music/Spotify Widget - Below Files/Projects widget */}
-        <div className="absolute flex h-[115.524px] items-center justify-center left-[5px] top-[436px] w-[247.133px]">
+        <div style={{ position: 'absolute', top: '436px', left: '-100px', width: '247.133px', height: '115.524px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <SpotifyWidget />
         </div>
 
-        {/* Light/Dark Mode Toggle Widget - Right of Spotify */}
-        <div className="absolute flex items-center justify-center left-[264px] size-[136.215px] top-[440px]">
+        {/* Light/Dark Mode Toggle Widget - Right of Profile */}
+        <div style={{ position: 'absolute', top: '5px', left: '320px', width: '136.215px', height: '136.215px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <LightToggleWidget />
         </div>
 
         {/* Location/Map Widget - Top right */}
-        <div className="absolute flex h-[136.215px] items-center justify-center left-[840px] top-[26px] w-[291.396px]">
+        <div style={{ position: 'absolute', top: '26px', left: '1250px', width: '291.396px', height: '136.215px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <LocationWidget />
         </div>
 
         {/* Reminders Widget - Under Location/Maps widget */}
-        <div className="absolute flex h-[305.19px] items-center justify-center left-[840px] top-[160px] w-[291.396px]">
+        <div style={{ position: 'absolute', top: '30px', left: '1250px', width: '291.396px', height: '305.19px', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10 }}>
           <ReminderWidget />
         </div>
 
         {/* Quote Widget - Below Reminders, aligned right */}
-        <div className="absolute flex items-center justify-end left-[840px] top-[480px] w-[291.396px]">
-          <div className="size-[136.215px] flex items-center justify-center">
-            <QuoteWidget />
-          </div>
+        <div style={{ position: 'absolute', top: '500px', left: '1405px', width: '136.215px', height: '136.215px', zIndex: 5, transform: 'none' }}>
+          <QuoteWidget />
         </div>
 
         {/* Calendar Widget - Top right area */}
-        <div className="absolute flex items-center justify-center left-[681.79px] size-[136.215px] top-[26px]">
+        <div style={{ position: 'absolute', top: '26px', left: '1100px', width: '136.215px', height: '136.215px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <CalendarWidget />
         </div>
 

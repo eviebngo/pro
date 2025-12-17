@@ -118,12 +118,6 @@ export function ReminderWidget() {
         </div>
       </div>
       
-      {/* Monday Quote - Below reminders, aligned right */}
-      <div className="absolute top-[305.19px] w-[291.396px] flex justify-end pr-[13.794px] pt-[10px]">
-        <p className="font-['SF_Pro_Text',sans-serif] text-[11px] text-white/70 text-right drop-shadow-md italic">
-          Monday - How will you make tomorrow meaningful?
-        </p>
-      </div>
     </div>
   );
 }

@@ -33,7 +33,7 @@ export function SpotifyWidget() {
 
   return (
     <div className="bg-[rgba(0,0,0,0)] h-[115.524px] relative rounded-[11.768px] w-[247.133px]">
-      <div className="absolute backdrop-blur-[50px] bg-gradient-to-b content-stretch flex from-[rgba(68,77,86,0.17)] gap-[8px] h-[115.524px] items-center left-[calc(50%+0.43px)] overflow-visible px-[11.699px] py-[9.505px] rounded-[16.086px] to-[rgba(67,77,86,0.17)] top-0 translate-x-[-50%] w-[247.133px] border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
+      <div className="absolute backdrop-blur-[50px] bg-gradient-to-b content-stretch flex from-[rgba(68,77,86,0.17)] gap-[8px] h-[115.524px] items-start left-[calc(50%+0.43px)] overflow-visible px-[11.699px] py-[9.505px] rounded-[16.086px] to-[rgba(67,77,86,0.17)] top-0 translate-x-[-50%] w-[247.133px] border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
         {/* Album Art */}
         <div className="relative rounded-[4.387px] shrink-0 size-[96.514px]">
           <img 
@@ -44,7 +44,7 @@ export function SpotifyWidget() {
         </div>
 
         {/* Music Details */}
-        <div className="flex flex-col gap-[12px] h-full items-start justify-end flex-1 min-w-0 pl-2 pb-1">
+        <div className="flex flex-col gap-[12px] h-[96.514px] items-start justify-start flex-1 min-w-0 pl-2 pt-0">
           {/* Text Container */}
           <div className="flex flex-col gap-[6px] items-start w-full">
             <p className="font-['SF_Pro_Text',sans-serif] leading-[11.699px] not-italic text-[#d0d9ea] text-[7px] tracking-[0.0731px] uppercase drop-shadow-lg">
@@ -69,28 +69,30 @@ export function SpotifyWidget() {
             </p>
           </div>
 
-          {/* Playback Controls */}
-          <div className="flex flex-col gap-[6px] items-start w-full pr-2">
-            {/* Progress Bar */}
-            <div className="relative w-full">
-              <div className="h-[2.919px] bg-white/20 backdrop-blur-sm border border-white/10 rounded-full overflow-hidden relative w-full shadow-inner">
-                <div 
-                  className="h-full bg-gradient-to-r from-white/80 to-white/60 rounded-full transition-all duration-1000 shadow-lg"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              
-              <div className="flex justify-between text-[7px] text-[#d0d9ea]/70 mt-1 px-0.5">
-                <span className="drop-shadow-md">{formatTime(currentTime)}</span>
-                <span className="drop-shadow-md">{formatTime(duration)}</span>
+            {/* Playback Controls */}
+            <div className="flex flex-col gap-[2px] items-start w-full pr-2" style={{ marginTop: '-5px' }}>
+              {/* Progress Bar */}
+              <div className="relative w-full">
+                <div className="h-[2.919px] bg-white/20 backdrop-blur-sm border border-white/10 rounded-full overflow-hidden relative w-full shadow-inner">
+                  <div 
+                    className="h-full bg-gradient-to-r from-white/80 to-white/60 rounded-full transition-all duration-1000 shadow-lg"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+                
+                <div className="flex justify-between text-[7px] text-[#d0d9ea]/70 mt-0.5 px-0.5">
+                  <span className="drop-shadow-md">{formatTime(currentTime)}</span>
+                  <span className="drop-shadow-md">{formatTime(duration)}</span>
+                </div>
               </div>
             </div>
 
-            {/* Play/Pause Button */}
-            <button 
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="bg-gradient-to-r from-[rgba(94,94,94,0.38)] to-[rgba(94,94,94,0.38)] backdrop-blur-xl border border-white/20 flex gap-[4px] h-[20px] items-center justify-center px-[8px] py-[4px] rounded-[86.212px] w-full transition-all duration-300 hover:bg-white/20 hover:scale-105 shadow-lg"
-            >
+            {/* Play/Pause Button - Positioned to align with album bottom and progress bar width */}
+            <div className="absolute" style={{ bottom: '9.505px', left: '124px', right: '19.699px' }}>
+              <button 
+                onClick={() => setIsPlaying(!isPlaying)}
+                className="bg-gradient-to-r from-[rgba(94,94,94,0.38)] to-[rgba(94,94,94,0.38)] backdrop-blur-xl border border-white/20 flex gap-[4px] h-[20px] items-center justify-center px-[8px] py-[4px] rounded-[86.212px] w-full transition-all duration-300 hover:bg-white/20 hover:scale-105 shadow-lg"
+              >
               <div className="relative shrink-0 size-[10px]">
                 {isPlaying ? (
                   <svg className="block size-full drop-shadow-lg" fill="white" preserveAspectRatio="none" viewBox="0 0 15 15">
@@ -106,7 +108,7 @@ export function SpotifyWidget() {
                 {isPlaying ? 'Pause' : 'Play'}
               </p>
             </button>
-          </div>
+            </div>
         </div>
 
         {/* Apple Music Icon */}

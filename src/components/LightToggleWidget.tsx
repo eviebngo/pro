@@ -33,18 +33,19 @@ function TextContainer() {
 
 export function LightToggleWidget() {
   return (
-    <div className="bg-[rgba(0,0,0,0)] relative rounded-[18.967px] size-full" data-name="Widget Container">
-      <div className="size-full">
-        <div className="content-stretch flex flex-col items-start justify-between overflow-clip p-[13.794px] relative size-full">
-          <div className="absolute left-0 size-[158px] top-0" data-name="Background">
-            <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-              <div className="absolute bg-[rgba(37,37,37,0)] inset-0" />
-              <div className="absolute backdrop-blur-[50px] backdrop-filter bg-[rgba(156,156,156,0)] inset-0 mix-blend-overlay" />
-            </div>
-          </div>
-          <AccessorySymbol />
-          <TextContainer />
-        </div>
+    <div className="relative rounded-[18.967px] size-full overflow-hidden" data-name="Widget Container" data-version="3">
+      {/* Glass Morphism Frame */}
+      <div 
+        className="absolute inset-0 rounded-[18.967px] backdrop-blur-[50px] border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] bg-[rgba(28,28,30,0)]"
+        style={{ 
+          WebkitBackdropFilter: 'blur(50px)',
+          backgroundColor: 'rgba(28, 28, 30, 0)'
+        }}
+      />
+      {/* Content */}
+      <div className="content-stretch flex flex-col items-start justify-between overflow-clip p-[13.794px] relative size-full z-10">
+        <AccessorySymbol />
+        <TextContainer />
       </div>
     </div>
   );
