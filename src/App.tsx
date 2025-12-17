@@ -12,7 +12,7 @@ import wallpaper from 'figma:asset/ef2a1d0434136ea93ccce8c980422c08e4cd14e3.png'
 
 export default function App() {
   return (
-    <div className="relative w-full min-h-screen overflow-hidden bg-black flex items-center justify-center">
+    <div className="relative w-full min-h-screen overflow-hidden bg-black flex items-center justify-center" style={{ margin: 0, padding: 0 }}>
       {/* Wallpaper Background */}
       <div 
         className="fixed inset-0 bg-cover bg-center bg-no-repeat"
@@ -21,6 +21,11 @@ export default function App() {
           transform: 'scaleX(-1)'
         }}
       />
+
+      {/* Top Navbar - Apple inspired - Outside scaled container */}
+      <div className="fixed z-50" style={{ top: 0, left: 0, right: 0, margin: 0, padding: 0 }}>
+        <Navbar />
+      </div>
 
       {/* Main Content - Matching original Mac1 proportions */}
       <div className="relative w-[1920px] h-[1080px] scale-[0.8] origin-center">
@@ -64,10 +69,6 @@ export default function App() {
           <CalendarWidget />
         </div>
 
-        {/* Dock/Navbar - Bottom center */}
-        <div className="absolute bottom-[20px] left-1/2 transform -translate-x-1/2 w-[320px] h-[70px]">
-          <Navbar />
-        </div>
       </div>
     </div>
   );
