@@ -24,8 +24,8 @@ export function LocationWidget() {
         <div className="absolute bottom-[48.28px] left-[122.42px] size-[28.45px]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 29 29">
             <g>
-              <circle cx="14.225" cy="14.225" fill="#65CDA6" fillOpacity="0.26" r="14.225" />
-              <circle cx="14.225" cy="14.225" r="13.7939" stroke="white" strokeOpacity="0.26" strokeWidth="0.862119" />
+              <circle cx="14.225" cy="14.225" fill="#2a5d45" r="14.225" style={{ fillOpacity: 1 }} />
+              <circle cx="14.225" cy="14.225" r="13.7939" stroke="white" strokeWidth="0.862119" style={{ strokeOpacity: 0.8 }} />
             </g>
           </svg>
         </div>
@@ -49,8 +49,8 @@ export function LocationWidget() {
                   <feBlend in="SourceGraphic" in2="effect1_dropShadow_contact" mode="normal" result="shape" />
                 </filter>
                 <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_contact" x1="12.9316" x2="12.9316" y1="4.31059" y2="21.5527">
-                  <stop stopColor="white" />
-                  <stop offset="1" stopColor="#999999" />
+                  <stop stopColor="#555555" />
+                  <stop offset="1" stopColor="#222222" />
                 </linearGradient>
               </defs>
             </svg>

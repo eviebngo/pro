@@ -133,6 +133,9 @@
 
   body {
     line-height: inherit;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
   }
 
   hr {
@@ -378,6 +381,9 @@
     color: var(--foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
   }
 
   :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) h1 {
@@ -4733,6 +4739,9 @@
 
 html {
   font-size: var(--font-size);
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 .custom-scrollbar::-webkit-scrollbar {

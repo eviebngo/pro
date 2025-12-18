@@ -30,7 +30,7 @@ export function ReminderWidget() {
   const incompleteTasks = tasks.filter(t => !t.completed).length;
 
   return (
-    <div className="bg-[rgba(0,0,0,0)] relative rounded-[14.656px] w-[291.396px]">
+    <div className="bg-[rgba(0,0,0,0)] h-[305.19px] relative rounded-[14.656px] w-[291.396px]">
       <div className="absolute backdrop-blur-[50px] bg-[rgba(28,28,30,0.29)] content-stretch flex flex-col gap-[3.448px] h-[305.19px] items-start left-[calc(50%+0.3px)] overflow-clip pb-0 pt-[14.656px] px-[13.794px] rounded-[18.967px] top-0 translate-x-[-50%] w-[291.396px] border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
         
         {/* Header Container */}
@@ -115,9 +115,11 @@ export function ReminderWidget() {
           <p className="font-['SF_Pro_Text',sans-serif] text-[10.345px] text-white/50 text-center drop-shadow-md">
             {tasks.filter(t => t.completed).length} of {tasks.length} completed
           </p>
+          <p className="font-['SF_Pro_Text',sans-serif] text-[11px] text-white/70 text-center drop-shadow-md italic">
+            Monday - How will you make tomorrow meaningful?
+          </p>
         </div>
       </div>
-      
     </div>
   );
 }

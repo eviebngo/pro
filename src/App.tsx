@@ -8,67 +8,103 @@ import { ClockWidget } from './components/ClockWidget';
 import { QuoteWidget } from './components/QuoteWidget';
 import { LightToggleWidget } from './components/LightToggleWidget';
 import { Navbar } from './components/Navbar';
-import wallpaper from 'figma:asset/ef2a1d0434136ea93ccce8c980422c08e4cd14e3.png';
+import { BottomDock } from './components/BottomDock';
+import { useState } from 'react';
+import { LoadingAnimation } from './components/LoadingAnimation';
+import wallpaper from './assets/background.jpg';
 
 export default function App() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
-    <div className="relative w-full min-h-screen overflow-hidden bg-black flex items-center justify-center" style={{ margin: 0, padding: 0 }}>
+    <div className="relative w-full h-screen overflow-hidden bg-black flex items-center justify-center" style={{ margin: 0, padding: 0 }}>
+      {/* Loading Animation */}
+      <LoadingAnimation onLoadingComplete={() => setIsLoaded(true)} />
+      
       {/* Wallpaper Background */}
       <div 
         className="fixed inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url('${wallpaper}')`,
-          transform: 'scaleX(-1)'
+          opacity: isLoaded ? 1 : 0,
+          transition: 'opacity 0.8s ease-in',
         }}
       />
 
       {/* Top Navbar - Apple inspired - Outside scaled container */}
-      <div className="fixed z-50" style={{ top: 0, left: 0, right: 0, margin: 0, padding: 0 }}>
+      <div 
+        className="fixed z-50" 
+        style={{ 
+          top: 0, 
+          left: 0, 
+          right: 0, 
+          margin: 0, 
+          padding: 0,
+          opacity: isLoaded ? 1 : 0,
+          transition: 'opacity 0.8s ease-in',
+        }}
+      >
         <Navbar />
       </div>
 
       {/* Main Content - Matching original Mac1 proportions */}
-      <div className="relative w-[1920px] h-[1080px] scale-[0.8] origin-center">
+      <div 
+        className="relative w-[1920px] h-[1080px] scale-[0.8] origin-center"
+        style={{
+          opacity: isLoaded ? 1 : 0,
+          transition: 'opacity 0.8s ease-in',
+        }}
+      >
         {/* Profile Widget - Top left with 5px padding */}
-        <div style={{ position: 'absolute', top: '5px', left: '-100px', width: '407.782px', height: '218.978px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ position: 'absolute', top: '-55px', left: '-100px', width: '407.782px', height: '218.978px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <ProfileWidget />
         </div>
 
         {/* Files/Projects Widget - Below Profile (bento grid) */}
-        <div style={{ position: 'absolute', top: '235px', left: '-100px', width: '404.334px', height: '189.008px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ position: 'absolute', top: '175px', left: '-100px', width: '404.334px', height: '189.008px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <FilesWidget />
         </div>
 
         {/* Music/Spotify Widget - Below Files/Projects widget */}
-        <div style={{ position: 'absolute', top: '436px', left: '-100px', width: '247.133px', height: '115.524px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ position: 'absolute', top: '376px', left: '-100px', width: '247.133px', height: '115.524px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <SpotifyWidget />
         </div>
 
         {/* Light/Dark Mode Toggle Widget - Right of Profile */}
-        <div style={{ position: 'absolute', top: '5px', left: '320px', width: '136.215px', height: '136.215px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ position: 'absolute', top: '-55px', left: '320px', width: '136.215px', height: '136.215px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <LightToggleWidget />
         </div>
 
         {/* Location/Map Widget - Top right */}
-        <div style={{ position: 'absolute', top: '26px', left: '1250px', width: '291.396px', height: '136.215px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ position: 'absolute', top: '-34px', left: '1250px', width: '291.396px', height: '136.215px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <LocationWidget />
         </div>
 
         {/* Reminders Widget - Under Location/Maps widget */}
-        <div style={{ position: 'absolute', top: '30px', left: '1250px', width: '291.396px', height: '305.19px', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10 }}>
+        <div style={{ position: 'absolute', top: '122px', left: '1250px', width: '291.396px', height: '305.19px', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10 }}>
           <ReminderWidget />
         </div>
 
         {/* Quote Widget - Below Reminders, aligned right */}
-        <div style={{ position: 'absolute', top: '500px', left: '1405px', width: '136.215px', height: '136.215px', zIndex: 5, transform: 'none' }}>
+        <div style={{ position: 'absolute', top: '440px', left: '1405px', width: '136.215px', height: '136.215px', zIndex: 5, transform: 'none' }}>
           <QuoteWidget />
         </div>
 
         {/* Calendar Widget - Top right area */}
-        <div style={{ position: 'absolute', top: '26px', left: '1100px', width: '136.215px', height: '136.215px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ position: 'absolute', top: '-34px', left: '1100px', width: '136.215px', height: '136.215px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <CalendarWidget />
         </div>
 
+      </div>
+
+      {/* Bottom Dock - Icon navbar */}
+      <div
+        style={{
+          opacity: isLoaded ? 1 : 0,
+          transition: 'opacity 0.8s ease-in',
+        }}
+      >
+        <BottomDock />
       </div>
     </div>
   );
