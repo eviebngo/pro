@@ -1,45 +1,154 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import song1 from '../assets/Olivia Dean - Touching Toes (Acoustic).mp3';
+import song2 from '../assets/The Two Lips - play [U0j4IQY7Fzc].mp3';
+import song3 from '../assets/Tiffany Day - TWFNO (Official Video) [pFljeiz-KGs].mp3';
+
+interface Song {
+  title: string;
+  artist: string;
+  audioFile: string;
+  albumCover: string;
+}
+
+// Playlist with your 3 songs - album covers will be added when you provide them
+const playlist: Song[] = [
+  {
+    title: 'Touching Toes',
+    artist: 'Olivia Dean',
+    audioFile: song1,
+    albumCover: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400', // Placeholder - will update when you provide cover
+  },
+  {
+    title: 'play',
+    artist: 'The Two Lips',
+    audioFile: song2,
+    albumCover: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400', // Placeholder - will update when you provide cover
+  },
+  {
+    title: 'TWFNO',
+    artist: 'Tiffany Day',
+    audioFile: song3,
+    albumCover: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400', // Placeholder - will update when you provide cover
+  },
+];
 
 export function SpotifyWidget() {
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration] = useState(254); // Song duration in seconds (4:14)
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const currentSong = playlist[currentSongIndex];
+
+  const handleNext = useCallback(() => {
+    setCurrentSongIndex((prev) => (prev + 1) % playlist.length);
+    setIsPlaying(true); // Auto-play next song
+  }, []);
+
+  const handlePrevious = useCallback(() => {
+    setCurrentSongIndex((prev) => (prev - 1 + playlist.length) % playlist.length);
+    setIsPlaying(true); // Auto-play previous song
+  }, []);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    
-    if (isPlaying) {
-      interval = setInterval(() => {
-        setCurrentTime((prev) => {
-          if (prev >= duration) {
-            setIsPlaying(false);
-            return 0;
-          }
-          return prev + 1;
-        });
-      }, 1000);
-    }
+    const audio = audioRef.current;
+    if (!audio) return;
 
-    return () => clearInterval(interval);
-  }, [isPlaying, duration]);
+    // Reset time when song changes
+    setCurrentTime(0);
+    setDuration(0);
+
+    const updateTime = () => setCurrentTime(audio.currentTime);
+    const updateDuration = () => {
+      if (audio.duration && !isNaN(audio.duration)) {
+        setDuration(audio.duration);
+      }
+    };
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setCurrentTime(0);
+      // Auto-play next song
+      handleNext();
+    };
+
+    audio.addEventListener('timeupdate', updateTime);
+    audio.addEventListener('loadedmetadata', updateDuration);
+    audio.addEventListener('canplay', updateDuration);
+    audio.addEventListener('ended', handleEnded);
+
+    // Load the new song
+    audio.load();
+
+    return () => {
+      audio.removeEventListener('timeupdate', updateTime);
+      audio.removeEventListener('loadedmetadata', updateDuration);
+      audio.removeEventListener('canplay', updateDuration);
+      audio.removeEventListener('ended', handleEnded);
+    };
+  }, [currentSongIndex, handleNext]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.error('Error playing audio:', error);
+          setIsPlaying(false);
+        });
+      }
+    } else {
+      audio.pause();
+    }
+  }, [isPlaying, currentSongIndex]);
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const audio = audioRef.current;
+    if (!audio || !duration) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const percentage = clickX / rect.width;
+    const newTime = percentage * duration;
+    
+    audio.currentTime = newTime;
+    setCurrentTime(newTime);
+  };
 
   const formatTime = (seconds: number) => {
+    if (!isFinite(seconds) || isNaN(seconds) || seconds < 0) {
+      return '0:00';
+    }
     const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
+    const secs = Math.floor(seconds % 60);
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const progress = (currentTime / duration) * 100;
+  const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
     <div className="bg-[rgba(0,0,0,0)] h-[115.524px] relative rounded-[11.768px] w-[247.133px]">
+      {/* Hidden Audio Element */}
+      <audio ref={audioRef} src={currentSong.audioFile} preload="metadata" />
+      
       <div className="absolute backdrop-blur-[50px] bg-gradient-to-b content-stretch flex from-[rgba(68,77,86,0.17)] gap-[8px] h-[115.524px] items-start left-[calc(50%+0.43px)] overflow-visible px-[11.699px] py-[9.505px] rounded-[16.086px] to-[rgba(67,77,86,0.17)] top-0 translate-x-[-50%] w-[247.133px] border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
         {/* Album Art */}
         <div className="relative rounded-[4.387px] shrink-0 size-[96.514px]">
           <img 
             alt="Album Art" 
             className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none rounded-[4.387px] size-full transition-transform duration-500 hover:scale-105" 
-            src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400" 
+            src={currentSong.albumCover}
+            onError={(e) => {
+              // Fallback to placeholder if image fails to load
+              (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400';
+            }}
           />
         </div>
 
@@ -53,7 +162,7 @@ export function SpotifyWidget() {
             
             <div className="flex gap-[4.387px] items-center w-full">
               <p className="font-['SF_Pro_Text',sans-serif] leading-[11.699px] not-italic text-[10px] text-white drop-shadow-lg">
-                Not Like Us
+                {currentSong.title}
               </p>
               
               <div className="relative shrink-0 size-[8.753px] bg-white/30 backdrop-blur-sm rounded-sm flex items-center justify-center border border-white/40">
@@ -65,7 +174,7 @@ export function SpotifyWidget() {
             </div>
 
             <p className="font-['SF_Pro_Text',sans-serif] leading-[11.699px] not-italic text-[#d0d9ea] text-[9px] w-full drop-shadow-lg">
-              Kendrick Lamar
+              {currentSong.artist}
             </p>
           </div>
 
@@ -73,7 +182,10 @@ export function SpotifyWidget() {
             <div className="flex flex-col gap-[2px] items-start w-full pr-2" style={{ marginTop: '-5px' }}>
               {/* Progress Bar */}
               <div className="relative w-full">
-                <div className="h-[2.919px] bg-white/20 backdrop-blur-sm border border-white/10 rounded-full overflow-hidden relative w-full shadow-inner">
+                <div 
+                  className="h-[2.919px] bg-white/20 backdrop-blur-sm border border-white/10 rounded-full overflow-hidden relative w-full shadow-inner cursor-pointer"
+                  onClick={handleProgressClick}
+                >
                   <div 
                     className="h-full bg-gradient-to-r from-white/80 to-white/60 rounded-full transition-all duration-1000 shadow-lg"
                     style={{ width: `${progress}%` }}
@@ -87,36 +199,63 @@ export function SpotifyWidget() {
               </div>
             </div>
 
-            {/* Play/Pause Button - Positioned to align with album bottom and progress bar width */}
-            <div className="absolute" style={{ bottom: '9.505px', left: '124px', right: '19.699px' }}>
+            {/* Spotify-style Playback Controls - Previous, Play/Pause, Next */}
+            <div className="absolute flex gap-[10px] items-center" style={{ bottom: '12px', left: '135px', zIndex: 10 }}>
+              {/* Previous Button - Gray */}
               <button 
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="bg-gradient-to-r from-[rgba(94,94,94,0.38)] to-[rgba(94,94,94,0.38)] backdrop-blur-xl border border-white/20 flex gap-[4px] h-[20px] items-center justify-center px-[8px] py-[4px] rounded-[86.212px] w-full transition-all duration-300 hover:bg-white/20 hover:scale-105 shadow-lg"
+                onClick={handlePrevious}
+                className="flex items-center justify-center h-[20px] w-[20px] transition-all duration-200 hover:scale-110 cursor-pointer"
+                title="Previous Song"
+                style={{ color: '#b3b3b3' }}
               >
-              <div className="relative shrink-0 size-[10px]">
+                <svg className="block size-full" fill="#b3b3b3" preserveAspectRatio="none" viewBox="0 0 24 24">
+                  <path d="M6 6h2v12H6V6zm8.5 6l-7 4.5V7.5l7 4.5z" />
+                </svg>
+              </button>
+              
+              {/* Play/Pause Button - White circle with black icon */}
+              <button 
+                onClick={handlePlayPause}
+                className="flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-110"
+                style={{ 
+                  width: '20px', 
+                  height: '20px', 
+                  backgroundColor: 'white', 
+                  borderRadius: '50%',
+                  zIndex: 11,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}
+                title={isPlaying ? 'Pause' : 'Play'}
+              >
                 {isPlaying ? (
-                  <svg className="block size-full drop-shadow-lg" fill="white" preserveAspectRatio="none" viewBox="0 0 15 15">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M5 3h1.5v9H5V3zm4.5 0H11v9H9.5V3z" />
+                  <svg className="block" style={{ width: '14px', height: '14px' }} fill="black" preserveAspectRatio="none" viewBox="0 0 24 24">
+                    <rect x="7" y="4" width="4" height="16" />
+                    <rect x="13" y="4" width="4" height="16" />
                   </svg>
                 ) : (
-                  <svg className="block size-full drop-shadow-lg" fill="white" preserveAspectRatio="none" viewBox="0 0 15 15">
-                    <path d="M5 3l7 4.5L5 12V3z" />
+                  <svg className="block" style={{ width: '14px', height: '14px', marginLeft: '1px' }} fill="black" preserveAspectRatio="none" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
                   </svg>
                 )}
-              </div>
-              <p className="font-['SF_Pro_Text',sans-serif] leading-[12px] not-italic text-[10px] text-nowrap text-white tracking-[-0.3px] drop-shadow-lg">
-                {isPlaying ? 'Pause' : 'Play'}
-              </p>
-            </button>
+              </button>
+              
+              {/* Next Button - Gray */}
+              <button 
+                onClick={handleNext}
+                className="flex items-center justify-center h-[20px] w-[20px] transition-all duration-200 hover:scale-110 cursor-pointer"
+                title="Next Song"
+                style={{ color: '#b3b3b3' }}
+              >
+                <svg className="block size-full" fill="#b3b3b3" preserveAspectRatio="none" viewBox="0 0 24 24">
+                  <path d="M6 18l7-6-7-6v12zm8 0h2V6h-2v12z" />
+                </svg>
+              </button>
             </div>
         </div>
 
-        {/* Apple Music Icon */}
-        <div className="absolute h-[15.354px] left-[223.01px] top-[9.51px] w-[11.974px] bg-white/20 backdrop-blur-sm p-1 rounded-lg border border-white/30 shadow-lg">
-          <svg className="block size-full drop-shadow-lg" fill="white" preserveAspectRatio="none" viewBox="0 0 12 16">
-            <path d="M11.5 0.5C11.5 0.223858 11.2761 0 11 0C10.7239 0 10.5 0.223858 10.5 0.5V9.5C10.5 9.77614 10.2761 10 10 10H9.5C8.67157 10 8 10.6716 8 11.5C8 12.3284 8.67157 13 9.5 13C10.3284 13 11 12.3284 11 11.5V4.5L11.5 4.5V0.5ZM4.5 5.5C4.5 5.22386 4.27614 5 4 5C3.72386 5 3.5 5.22386 3.5 5.5V12.5C3.5 12.7761 3.27614 13 3 13H2.5C1.67157 13 1 13.6716 1 14.5C1 15.3284 1.67157 16 2.5 16C3.32843 16 4 15.3284 4 14.5V7.5H4.5V5.5Z" />
-          </svg>
-        </div>
       </div>
     </div>
   );
