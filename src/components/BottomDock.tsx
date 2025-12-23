@@ -1,3 +1,4 @@
+import React from "react";
 import svgPaths from "../imports/svg-vpp7ttfaou";
 
 type WrapperProps = {
@@ -186,24 +187,34 @@ export function BottomDock() {
                               <g id="Frame 26">
                                 <path d="M 18.85 19.3 L 37.15 19.3 Q 37.5 19.3 37.5 19.65 L 37.5 20 L 18.5 20 L 18.5 19.65 Q 18.5 19.3 18.85 19.3 Z" fill="url(#whiteGradient_1_119)" />
                               </g>
-                              <g filter="url(#filter2_f_1_119)" id="Vector 8">
-                                <path d={svgPaths.p2f305100} stroke="#555555" strokeOpacity="0.8" strokeWidth="2" />
-                              </g>
                               <g filter="url(#filter3_i_1_119)" id="Rectangle 3">
-                                <path d={svgPaths.pfd2ef80} fill="#0a0a0a" fillOpacity="1" />
+                                <path d={svgPaths.pfd2ef80} fill="#6a6a6a" fillOpacity="1" />
                               </g>
                               <g filter="url(#filter4_d_1_119_v3)" id="Vector 6">
-                                <path d={svgPaths.p3beb6700} fill="#1a1a1a" fillOpacity="0.9" shapeRendering="crispEdges" style={{ mixBlendMode: 'normal' }} />
+                                <path d={svgPaths.p3beb6700} fill="#7a7a7a" fillOpacity="1" shapeRendering="crispEdges" style={{ mixBlendMode: 'normal' }} />
                               </g>
                               <g filter="url(#filter5_d_1_119)" id="Frame 29">
                                 <g clipPath="url(#clip1_1_119)">
-                                  <path d={svgPaths.p2fe85800} fill="#4a4a4a" fillOpacity="0.5" shapeRendering="crispEdges" />
+                                  <path d={svgPaths.p2fe85800} fill="#9a9a9a" fillOpacity="0.8" shapeRendering="crispEdges" />
                                   <g filter="url(#filter6_f_1_119)" id="Vector 7">
-                                    <path d={svgPaths.p2d05b200} fill="#cccccc" fillOpacity="0.6" />
-                                    <path d={svgPaths.p2d05b200} stroke="#cccccc" strokeOpacity="0.6" strokeWidth="0.890137" />
+                                    <path d={svgPaths.p2d05b200} fill="#cccccc" fillOpacity="0.9" />
+                                    <path d={svgPaths.p2d05b200} stroke="#cccccc" strokeOpacity="0.9" strokeWidth="0.890137" />
                                   </g>
                                 </g>
                               </g>
+                              <g filter="url(#filter2_f_1_119)" id="Vector 8">
+                                <path d={svgPaths.p2f305100} stroke="#555555" strokeOpacity="0.8" strokeWidth="2" />
+                              </g>
+                              <g filter="url(#filter7_f_1_119)" id="L Triangle Bottom Right">
+                                <path d="M 46.3 42.8 L 46.3 26 L 30 42.8 Z" fill="#222222" fillOpacity="0.95" />
+                              </g>
+                            </g>
+                            {/* White triangular vectors on diagonal sides */}
+                            <g filter="url(#filter4_f_1_119)" id="Triangle Top Left">
+                              <path d="M4.5 4.05 L17 4.05 L4.5 20 Z" fill="white" fillOpacity="0.8" />
+                            </g>
+                            <g filter="url(#filter5_f_1_119)" id="Triangle Bottom Right">
+                              <path d="M43.3 42.85 L30.8 42.85 L43.3 26.7 Z" fill="white" fillOpacity="0.8" />
                             </g>
                           </g>
                         </g>
@@ -231,7 +242,7 @@ export function BottomDock() {
                           <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="50" id="filter2_f_1_119" width="50" x="-3" y="-3">
                             <feFlood floodOpacity="0" result="BackgroundImageFix" />
                             <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
-                            <feGaussianBlur result="effect1_foregroundBlur_1_119" stdDeviation="8" edgeMode="duplicate" />
+                            <feGaussianBlur result="effect1_foregroundBlur_1_119" stdDeviation="4" edgeMode="duplicate" />
                           </filter>
                           <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="0.862119" id="filter3_i_1_119" width="21.553" x="17.9321" y="18.7942">
                             <feFlood floodOpacity="0" result="BackgroundImageFix" />
@@ -278,6 +289,21 @@ export function BottomDock() {
                             <feFlood floodOpacity="0" result="BackgroundImageFix" />
                             <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
                             <feGaussianBlur result="effect1_foregroundBlur_1_119" stdDeviation="4" edgeMode="duplicate" />
+                          </filter>
+                          <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="100" id="filter4_f_1_119" width="100" x="-30" y="-30">
+                            <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                            <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                            <feGaussianBlur result="effect1_foregroundBlur_1_119" stdDeviation="12" edgeMode="duplicate" />
+                          </filter>
+                          <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="100" id="filter5_f_1_119" width="100" x="-5" y="7">
+                            <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                            <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                            <feGaussianBlur result="effect1_foregroundBlur_1_119" stdDeviation="12" edgeMode="duplicate" />
+                          </filter>
+                          <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="20" id="filter7_f_1_119" width="20" x="32" y="28">
+                            <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                            <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                            <feGaussianBlur result="effect1_foregroundBlur_1_119" stdDeviation="15" edgeMode="duplicate" />
                           </filter>
                           <linearGradient gradientUnits="userSpaceOnUse" id="whiteGradient_1_119" x1="18.5" x2="37.5" y1="19.65" y2="19.65">
                             <stop stopColor="#ffffff" stopOpacity="0.9" />
@@ -635,3 +661,4 @@ export function BottomDock() {
     </div>
   );
 }
+

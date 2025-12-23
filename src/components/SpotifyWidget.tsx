@@ -2,6 +2,9 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import song1 from '../assets/Olivia Dean - Touching Toes (Acoustic).mp3';
 import song2 from '../assets/The Two Lips - play [U0j4IQY7Fzc].mp3';
 import song3 from '../assets/Tiffany Day - TWFNO (Official Video) [pFljeiz-KGs].mp3';
+import albumCover1 from '../assets/Screenshot 2025-12-19 125656.png';
+import albumCover2 from '../assets/IMG_2483.JPG';
+import albumCover3 from '../assets/IMG_2485.PNG';
 
 interface Song {
   title: string;
@@ -10,25 +13,25 @@ interface Song {
   albumCover: string;
 }
 
-// Playlist with your 3 songs - album covers will be added when you provide them
+// Playlist with your 3 songs
 const playlist: Song[] = [
   {
-    title: 'Touching Toes',
-    artist: 'Olivia Dean',
+    title: 'Commit the Change',
+    artist: 'My involvements!',
     audioFile: song1,
-    albumCover: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400', // Placeholder - will update when you provide cover
+    albumCover: albumCover2,
   },
   {
-    title: 'play',
-    artist: 'The Two Lips',
+    title: 'Design @ UCI',
+    artist: 'My involvements!',
     audioFile: song2,
-    albumCover: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400', // Placeholder - will update when you provide cover
+    albumCover: albumCover3,
   },
   {
-    title: 'TWFNO',
-    artist: 'Tiffany Day',
+    title: 'Project Teams',
+    artist: 'My involvements!',
     audioFile: song3,
-    albumCover: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400', // Placeholder - will update when you provide cover
+    albumCover: albumCover1,
   },
 ];
 

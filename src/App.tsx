@@ -6,12 +6,11 @@ import { LocationWidget } from './components/LocationWidget';
 import { FilesWidget } from './components/FilesWidget';
 import { ClockWidget } from './components/ClockWidget';
 import { QuoteWidget } from './components/QuoteWidget';
-import { LightToggleWidget } from './components/LightToggleWidget';
 import { Navbar } from './components/Navbar';
 import { BottomDock } from './components/BottomDock';
 import { useState } from 'react';
 import { LoadingAnimation } from './components/LoadingAnimation';
-import wallpaper from './assets/background.jpg';
+import wallpaper from './assets/755813083720c0adbc5183e6dde8189c.jpg';
 
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -27,7 +26,7 @@ export default function App() {
         style={{
           backgroundImage: `url('${wallpaper}')`,
           opacity: isLoaded ? 1 : 0,
-          transition: 'opacity 0.8s ease-in',
+          transition: 'opacity 1s ease-in-out',
         }}
       />
 
@@ -41,7 +40,7 @@ export default function App() {
           margin: 0, 
           padding: 0,
           opacity: isLoaded ? 1 : 0,
-          transition: 'opacity 0.8s ease-in',
+          transition: 'opacity 1s ease-in-out',
         }}
       >
         <Navbar />
@@ -52,7 +51,7 @@ export default function App() {
         className="relative w-[1920px] h-[1080px] scale-[0.8] origin-center"
         style={{
           opacity: isLoaded ? 1 : 0,
-          transition: 'opacity 0.8s ease-in',
+          transition: 'opacity 1s ease-in-out',
         }}
       >
         {/* Profile Widget - Top left with 5px padding */}
@@ -68,11 +67,6 @@ export default function App() {
         {/* Music/Spotify Widget - Below Files/Projects widget */}
         <div style={{ position: 'absolute', top: '376px', left: '-100px', width: '247.133px', height: '115.524px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <SpotifyWidget />
-        </div>
-
-        {/* Light/Dark Mode Toggle Widget - Right of Profile */}
-        <div style={{ position: 'absolute', top: '-55px', left: '320px', width: '136.215px', height: '136.215px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <LightToggleWidget />
         </div>
 
         {/* Location/Map Widget - Top right */}
@@ -101,7 +95,7 @@ export default function App() {
       <div
         style={{
           opacity: isLoaded ? 1 : 0,
-          transition: 'opacity 0.8s ease-in',
+          transition: 'opacity 1s ease-in-out',
         }}
       >
         <BottomDock />

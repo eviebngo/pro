@@ -1,14 +1,15 @@
 export function Navbar() {
   return (
     <div 
-      className="flex flex-row items-center justify-between backdrop-blur-[50px] border-b border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]"
+      className="flex flex-row items-center justify-between"
       style={{
         width: '100%',
         height: '32px',
-        backgroundColor: 'rgba(28, 28, 30, 0.29)',
-        WebkitBackdropFilter: 'blur(50px)',
-        paddingLeft: '13.79px',
-        paddingRight: '13.79px',
+        backgroundColor: 'rgba(0, 0, 0, 0.001)',
+        backdropFilter: 'blur(71.56px)',
+        WebkitBackdropFilter: 'blur(71.56px)',
+        paddingLeft: '13.793924331665039px',
+        paddingRight: '13.793924331665039px',
         margin: 0,
         top: 0
       }}
@@ -33,8 +34,8 @@ export function Navbar() {
       <div 
         className="flex flex-row items-center"
         style={{
-          gap: '24.14px',
-          height: '18.97px'
+          gap: '24.139331817626953px',
+          height: '18.966617584228516px'
         }}
       >
         <a 
@@ -53,6 +54,23 @@ export function Navbar() {
           }}
         >
           Projects
+        </a>
+        <a 
+          href="#archive"
+          className="flex-none hover:opacity-80 transition-opacity"
+          style={{
+            width: '55px',
+            height: '19px',
+            fontFamily: "'SF Pro Text', sans-serif",
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: '15.5181px',
+            lineHeight: '19px',
+            color: '#FFFFFF',
+            textDecoration: 'none'
+          }}
+        >
+          Archive
         </a>
         <a 
           href="#about"
