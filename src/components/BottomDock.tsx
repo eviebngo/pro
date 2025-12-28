@@ -217,6 +217,10 @@ export function BottomDock() {
                               <path d="M43.3 42.85 L30.8 42.85 L43.3 26.7 Z" fill="white" fillOpacity="0.8" />
                             </g>
                           </g>
+                          {/* 90 degree triangle on top with right angle at bottom right - outside clipPath to be on top */}
+                          <g filter="url(#filter4_f_1_119)" id="Triangle Top Right">
+                            <path d="M46.3 20 L46.3 4.05 L30 20 Z" fill="white" fillOpacity="0.8" />
+                          </g>
                         </g>
                         <defs>
                           <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="57.4171" id="filter0_d_1_119" width="57.4171" x="0" y="2.38419e-07">
@@ -295,15 +299,15 @@ export function BottomDock() {
                             <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
                             <feGaussianBlur result="effect1_foregroundBlur_1_119" stdDeviation="12" edgeMode="duplicate" />
                           </filter>
-                          <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="100" id="filter5_f_1_119" width="100" x="-5" y="7">
+                          <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="200" id="filter5_f_1_119" width="200" x="-50" y="-20">
+                            <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                            <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                            <feGaussianBlur result="effect1_foregroundBlur_1_119" stdDeviation="60" edgeMode="duplicate" />
+                          </filter>
+                          <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="80" id="filter7_f_1_119" width="80" x="15" y="15">
                             <feFlood floodOpacity="0" result="BackgroundImageFix" />
                             <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
                             <feGaussianBlur result="effect1_foregroundBlur_1_119" stdDeviation="12" edgeMode="duplicate" />
-                          </filter>
-                          <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="20" id="filter7_f_1_119" width="20" x="32" y="28">
-                            <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                            <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
-                            <feGaussianBlur result="effect1_foregroundBlur_1_119" stdDeviation="15" edgeMode="duplicate" />
                           </filter>
                           <linearGradient gradientUnits="userSpaceOnUse" id="whiteGradient_1_119" x1="18.5" x2="37.5" y1="19.65" y2="19.65">
                             <stop stopColor="#ffffff" stopOpacity="0.9" />

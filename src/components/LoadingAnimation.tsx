@@ -7,7 +7,7 @@ interface LoadingAnimationProps {
 const greetings = [
   'Hola',
   'Xin chào',
-  'Hello', // Hello last, stays longer and fades with screen
+  'Hello',
 ];
 
 export function LoadingAnimation({ onLoadingComplete }: LoadingAnimationProps) {
@@ -27,42 +27,41 @@ export function LoadingAnimation({ onLoadingComplete }: LoadingAnimationProps) {
         if (onLoadingComplete) {
           onLoadingComplete();
         }
-      }, 1000); // Wait for fade-out to complete (synchronized with main page fade-in)
+      }, 400); // Wait for fade-out to complete (synchronized with main page fade-in)
       return () => clearTimeout(removeTimer);
     }
 
-    const isHello = greetings[currentIndex] === 'Hello';
     const isXinChao = greetings[currentIndex] === 'Xin chào';
-    const nextIsHello = currentIndex + 1 < greetings.length && greetings[currentIndex + 1] === 'Hello';
+    const isHello = greetings[currentIndex] === 'Hello';
+    const isLastGreeting = currentIndex === greetings.length - 1;
 
-    // Special handling for "Hello" (last greeting) - enters with slide down, then fades out smoothly (no slide down on exit)
-    if (isHello) {
+    // Special handling for last greeting (Hello) - fade out as soon as it shows
+    if (isLastGreeting) {
       // Start entering animation (slide down from above, like other greetings)
       setIsEntering(true);
       setIsLeaving(false);
       setIsFadingOut(false);
       
-      // After entering animation completes, show greeting
+      // After entering animation completes, show greeting briefly, then start fade
       const enterTimer = setTimeout(() => {
         setIsEntering(false);
+        // Show Hello for a moment before starting fade
+        const showTimer = setTimeout(() => {
+          setIsFadingOut(true); // Fade out Hello text
+          setIsVisible(false); // Fade out loading screen
+          const fadeTimer = setTimeout(() => {
+            setShouldRender(false);
+            if (onLoadingComplete) {
+              onLoadingComplete();
+            }
+          }, 400); // Wait for fade-out to complete
+          return () => clearTimeout(fadeTimer);
+        }, 1000); // Brief display time before fade
+        return () => clearTimeout(showTimer);
       }, 300); // Enter animation duration
-      
-      // Show "Hello" longer, then fade out smoothly with screen (no slide down)
-      const showTimer = setTimeout(() => {
-        setIsVisible(false);
-        // Trigger main page fade-in immediately when we start fading out
-        if (onLoadingComplete) {
-          onLoadingComplete();
-        }
-        const removeTimer = setTimeout(() => {
-          setShouldRender(false);
-        }, 1000); // Synchronized fade-out duration
-        return () => clearTimeout(removeTimer);
-      }, 1500 + 300); // Display time for Hello + enter animation
 
       return () => {
         clearTimeout(enterTimer);
-        clearTimeout(showTimer);
       };
     }
 
@@ -79,26 +78,14 @@ export function LoadingAnimation({ onLoadingComplete }: LoadingAnimationProps) {
 
     // Show each greeting briefly, then animate out
     const showTimer = setTimeout(() => {
-      // If transitioning to "Hello", fade out instead of slide down (match Hello's animation style)
-      if (nextIsHello) {
-        // Start fade out
-        setIsFadingOut(true);
-        // After fade completes, move to next greeting
-        const fadeTimer = setTimeout(() => {
-          setIsFadingOut(false);
-          setCurrentIndex(prev => prev + 1);
-        }, 300); // Fade duration - matches the transition timing
-        return () => clearTimeout(fadeTimer);
-      } else {
-        // Normal slide down animation
-        setIsLeaving(true);
-        // After slide-down animation, move to next greeting
-        const nextTimer = setTimeout(() => {
-          setCurrentIndex(prev => prev + 1);
-        }, 300); // Slower leave animation
-        return () => clearTimeout(nextTimer);
-      }
-    }, 600 + 300); // Longer display time + enter animation
+      // Normal slide down animation
+      setIsLeaving(true);
+      // After slide-down animation, move to next greeting
+      const nextTimer = setTimeout(() => {
+        setCurrentIndex(prev => prev + 1);
+      }, 300); // Leave animation duration
+      return () => clearTimeout(nextTimer);
+    }, 600 + 300); // Display time + enter animation
 
     return () => {
       clearTimeout(enterTimer);
@@ -108,9 +95,9 @@ export function LoadingAnimation({ onLoadingComplete }: LoadingAnimationProps) {
 
   if (!shouldRender) return null;
 
-  const isHello = greetings[currentIndex] === 'Hello';
-  const isXinChao = greetings[currentIndex] === 'Xin chào';
-  const nextIsHello = currentIndex + 1 < greetings.length && greetings[currentIndex + 1] === 'Hello';
+  const isXinChao = currentIndex < greetings.length ? greetings[currentIndex] === 'Xin chào' : false;
+  const isHello = currentIndex < greetings.length ? greetings[currentIndex] === 'Hello' : false;
+  const currentGreeting = currentIndex < greetings.length ? greetings[currentIndex] : '';
 
   return (
     <div
@@ -126,38 +113,38 @@ export function LoadingAnimation({ onLoadingComplete }: LoadingAnimationProps) {
         justifyContent: 'center',
         zIndex: 9999,
         opacity: isVisible ? 1 : 0,
-        transition: 'opacity 1s ease-in-out',
+        transition: 'opacity 0.4s ease-in-out',
         pointerEvents: isVisible ? 'auto' : 'none',
       }}
     >
-      <div
-        style={{
-          textAlign: 'center',
-          transform: isEntering
-            ? 'translateY(-30px)' 
-            : isLeaving && !isXinChao && !isHello
-            ? 'translateY(30px)' 
-            : 'translateY(0)',
-          opacity: isEntering || (isLeaving && !isXinChao && !isHello) || isFadingOut ? 0 : 1,
-          transition: (isHello && !isEntering) || isFadingOut
-            ? 'opacity 0.3s ease-out' // Smooth fade-out for Hello and Xin chào when transitioning to Hello (no transform)
-            : 'transform 0.3s ease-out, opacity 0.3s ease-out', // Normal animations for other greetings and Hello's enter
-        }}
-      >
-        <h1
+      {currentGreeting && (
+        <div
           style={{
-            color: '#ffffff',
-            fontSize: '64px',
-            fontWeight: 300,
-            fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-            letterSpacing: '-0.02em',
-            margin: 0,
-            lineHeight: 1.2,
+            textAlign: 'center',
+            transform: isEntering
+              ? 'translateY(-30px)' 
+              : isLeaving
+              ? 'translateY(30px)' 
+              : 'translateY(0)',
+            opacity: isEntering || isLeaving || isFadingOut ? 0 : 1,
+            transition: 'transform 0.3s ease-out, opacity 0.4s ease-out', // Normal animations for all greetings
           }}
         >
-          {greetings[currentIndex]}
-        </h1>
-      </div>
+          <h1
+            style={{
+              color: '#ffffff',
+              fontSize: '64px',
+              fontWeight: 300,
+              fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+              letterSpacing: '-0.02em',
+              margin: 0,
+              lineHeight: 1.2,
+            }}
+          >
+            {currentGreeting}
+          </h1>
+        </div>
+      )}
     </div>
   );
 }

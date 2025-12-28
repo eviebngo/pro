@@ -73,7 +73,7 @@ export function LocationWidget() {
 
         {/* Address Text - Bottom */}
         <div className="absolute flex flex-col font-['SF_Pro_Text',sans-serif] h-[8.621px] justify-center leading-[13.794px] left-[13.79px] not-italic overflow-ellipsis overflow-hidden text-[12.07px] text-nowrap text-white top-[102.59px] tracking-[-0.2586px] translate-y-[-50%] w-[263.808px]">
-          <p className="drop-shadow-lg">2899 Hyperion Ave</p>
+          <p className="drop-shadow-lg">Maru Coffee</p>
         </div>
       </div>
     </div>

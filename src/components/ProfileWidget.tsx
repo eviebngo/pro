@@ -1,6 +1,16 @@
+import { useEffect, useState } from 'react';
 import imgEllipse1 from 'figma:asset/e51e634268304fd0cd69d32e19d2ab2c45e4ce66.png';
 
 export function ProfileWidget() {
+  const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setOpacity(prev => prev === 1 ? 0.6 : 1);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="bg-[rgba(159,159,159,0.07)] backdrop-blur-[50px] h-[218.978px] overflow-clip relative rounded-[12.932px] w-[407.782px] border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
       {/* Profile Image */}
@@ -33,7 +43,16 @@ export function ProfileWidget() {
       <div className="absolute content-stretch flex gap-[7.759px] items-center left-[21.55px] top-[178.46px]">
         <div className="relative shrink-0 size-[9.483px]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10 10">
-            <circle cx="4.74165" cy="4.74165" fill="#4CA53E" r="4.74165" />
+            <circle 
+              cx="4.74165" 
+              cy="4.74165" 
+              fill="#4CA53E" 
+              r="4.74165"
+              style={{ 
+                opacity,
+                transition: 'opacity 1s ease-in-out'
+              }}
+            />
           </svg>
         </div>
         <p className="text-shadow-[rgba(0,0,0,0.2)_0px_3.448px_4.138px] font-['Inter',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#777777] text-[15.518px] text-nowrap whitespace-pre drop-shadow-md">

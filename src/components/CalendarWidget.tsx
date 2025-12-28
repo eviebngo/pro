@@ -49,12 +49,12 @@ export function CalendarWidget() {
       days.push(
         <div
           key={day}
-          className={`content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 size-[15.518px] transition-all
+          className={`content-stretch flex items-center justify-center overflow-clip relative shrink-0 size-[15.518px] transition-all
             ${isToday ? 'bg-[#ff4539] rounded-[17.242px] shadow-lg' : ''}
             ${!isToday && !isWeekend ? 'hover:bg-white/10 rounded-[17.242px]' : ''}
           `}
         >
-          <p className={`font-['SF_Pro_Text',sans-serif] h-[6.035px] leading-[normal] not-italic relative shrink-0 text-[8.621px] text-center uppercase w-full drop-shadow-md
+          <p className={`font-['SF_Pro_Text',sans-serif] leading-[normal] not-italic relative shrink-0 text-[8.621px] text-center uppercase drop-shadow-md
             ${isToday ? 'text-white' : ''}
             ${!isToday && isWeekend ? 'text-[#8e8d93]' : ''}
             ${!isToday && !isWeekend ? 'text-white' : ''}
