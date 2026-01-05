@@ -8,12 +8,14 @@ import { ClockWidget } from './components/ClockWidget';
 import { QuoteWidget } from './components/QuoteWidget';
 import { Navbar } from './components/Navbar';
 import { BottomDock } from './components/BottomDock';
+import { SkintelModal } from './components/SkintelModal';
 import { useState } from 'react';
 import { LoadingAnimation } from './components/LoadingAnimation';
 import wallpaper from './assets/755813083720c0adbc5183e6dde8189c.jpg';
 
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isSkintelModalOpen, setIsSkintelModalOpen] = useState(false);
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-black flex items-center justify-center" style={{ margin: 0, padding: 0 }}>
@@ -61,7 +63,7 @@ export default function App() {
 
         {/* Files/Projects Widget - Below Profile (bento grid) */}
         <div style={{ position: 'absolute', top: '175px', left: '-100px', width: '404.334px', height: '189.008px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <FilesWidget />
+          <FilesWidget onSkintelClick={() => setIsSkintelModalOpen(true)} />
         </div>
 
         {/* Music/Spotify Widget - Below Files/Projects widget */}
@@ -100,6 +102,12 @@ export default function App() {
       >
         <BottomDock />
       </div>
+
+      {/* Skintel Modal */}
+      <SkintelModal 
+        isOpen={isSkintelModalOpen} 
+        onClose={() => setIsSkintelModalOpen(false)} 
+      />
     </div>
   );
 }

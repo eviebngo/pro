@@ -155,21 +155,21 @@ export function QuoteWidget() {
   return (
     <div className="relative size-full" data-name="Journal">
       <div 
-        className="absolute left-1/2 overflow-clip rounded-[18.967px] size-[136.215px] top-0 translate-x-[-50%] border border-white/30 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]" 
+        className="absolute left-1/2 overflow-clip rounded-[18.967px] size-[136.215px] top-[30px] translate-x-[-50%] border border-white/30 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]" 
         style={{ 
           backdropFilter: 'blur(50px)',
           WebkitBackdropFilter: 'blur(50px)',
-          backgroundColor: 'rgba(255, 255, 255, 0.25)'
+          backgroundColor: 'rgba(0, 0, 0, 0.87)'
         }}
         data-name="Widget Container">
         <IconButton />
         <PrimaryButton />
-        <p className="-webkit-box absolute bg-clip-text bg-gradient-to-r font-['SF_Pro_Text:Regular',sans-serif] from-[#464bc3] leading-[19.829px] left-[12.93px] not-italic overflow-ellipsis overflow-hidden right-[12.07px] text-[14.225px] to-[#00056b] to-[93.789%] top-[calc(50%-30.17px)] tracking-[-0.2586px]" style={{ WebkitTextFillColor: "transparent" }}>
+        <p className="-webkit-box absolute font-['SF_Pro_Text:Regular',sans-serif] leading-[19.829px] left-[12.93px] not-italic overflow-ellipsis overflow-hidden right-[12.07px] text-[14.225px] top-[calc(50%-30.17px)] tracking-[-0.2586px] text-white drop-shadow-lg" style={{ color: 'rgba(255, 255, 255, 1)', textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)' }}>
           How will you make tomorrow meaningful?
         </p>
         <JournalIcon />
         <JournalIcon1 />
-        <p className="absolute bg-clip-text bg-gradient-to-r font-['SF_Pro_Text:Semibold',sans-serif] from-[#6a80ff] leading-[17.242px] left-[12.93px] not-italic overflow-ellipsis overflow-hidden text-[12.07px] text-nowrap to-[#3335b6] top-[15.52px] tracking-[-0.0862px] whitespace-pre" style={{ WebkitTextFillColor: "transparent" }}>
+        <p className="absolute font-['SF_Pro_Text:Semibold',sans-serif] leading-[17.242px] left-[12.93px] not-italic overflow-ellipsis overflow-hidden text-[12.07px] text-nowrap top-[15.52px] tracking-[-0.0862px] whitespace-pre text-white drop-shadow-lg" style={{ color: 'rgba(255, 255, 255, 1)', textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)' }}>
           Monday
         </p>
       </div>

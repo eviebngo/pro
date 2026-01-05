@@ -8,14 +8,13 @@ interface Task {
 
 export function ReminderWidget() {
   const [tasks, setTasks] = useState<Task[]>([
-    { id: 1, text: 'Pick up arts & crafts supplies', completed: false },
-    { id: 2, text: 'Send cookie recipe to Rigo', completed: false },
-    { id: 3, text: 'Book club prep', completed: false },
-    { id: 4, text: 'Hike with Darla', completed: false },
-    { id: 5, text: 'Schedule car maintenance', completed: false },
-    { id: 6, text: 'Cancel membership', completed: false },
-    { id: 7, text: 'Check spare tire', completed: false },
+    { id: 1, text: 'Website redesign for RBCA (Riverside Barristers County Association)', completed: false },
+    { id: 2, text: 'Product Association Project Incubation for Spring Quarter', completed: false },
+    { id: 3, text: 'Create onboarding resources for Designathon Committee Members', completed: false },
+    { id: 4, text: 'Finish user lofi user flows for CLCHC Non-profit', completed: false },
   ]);
+  const [isAdding, setIsAdding] = useState(false);
+  const [newTaskText, setNewTaskText] = useState('');
 
   const toggleTask = (id: number) => {
     setTasks(tasks.map(task =>
@@ -27,6 +26,19 @@ export function ReminderWidget() {
     setTasks(tasks.filter(task => task.id !== id));
   };
 
+  const addTask = () => {
+    if (newTaskText.trim()) {
+      const newTask: Task = {
+        id: Date.now(),
+        text: newTaskText.trim(),
+        completed: false
+      };
+      setTasks([newTask, ...tasks]);
+      setNewTaskText('');
+      setIsAdding(false);
+    }
+  };
+
   const incompleteTasks = tasks.filter(t => !t.completed).length;
 
   return (
@@ -36,24 +48,37 @@ export function ReminderWidget() {
         {/* Header Container */}
         <div className="content-stretch flex flex-col gap-[12.07px] h-[54.313px] items-start relative shrink-0 w-[263.808px]">
           <div className="h-[40.52px] relative shrink-0 w-full">
-            {/* Text Container */}
-            <div className="absolute content-stretch flex flex-col gap-[12.932px] items-start leading-[0] left-0 not-italic top-0 w-[64.659px]">
-              <div className="flex flex-col font-['SF_Pro_Rounded',sans-serif] justify-center relative shrink-0 text-[25.864px] text-[rgba(255,255,255,0.77)] tracking-[0.2586px] w-full drop-shadow-lg">
+            {/* Number and Title Container - stacked vertically, left aligned */}
+            <div className="flex flex-col gap-[12.932px] items-start">
+              <div className="flex flex-col font-['SF_Pro_Rounded',sans-serif] justify-center relative shrink-0 text-[25.864px] text-[rgba(255,255,255,0.77)] tracking-[0.2586px] drop-shadow-lg">
                 <p className="leading-[13.794px]">{incompleteTasks}</p>
               </div>
-              <div className="flex flex-col font-['SF_Pro_Rounded',sans-serif] justify-center relative shrink-0 text-[13.363px] text-[rgba(226,14,0,0.66)] tracking-[0.0862px] w-full drop-shadow-lg">
-                <p className="leading-[13.794px]">Reminders</p>
+              <div className="flex flex-col font-['SF_Pro_Rounded',sans-serif] justify-center relative shrink-0 text-[13.363px] text-[rgba(226,14,0,0.66)] tracking-[0.0862px] drop-shadow-lg">
+                <p className="leading-[13.794px] whitespace-nowrap">Current Ongoing Projects</p>
               </div>
             </div>
 
             {/* Symbol Container - Animated plus button */}
-            <div className="absolute right-[-0.19px] size-[29.312px] top-[3.45px] transition-transform hover:scale-110 cursor-pointer">
-              <div className="bg-[rgba(226,14,0,0.6)] backdrop-blur-sm rounded-full size-full flex items-center justify-center border border-white/20 shadow-lg">
+            <button
+              onClick={() => {
+                setIsAdding(!isAdding);
+                if (!isAdding) {
+                  setTimeout(() => {
+                    const input = document.getElementById('new-reminder-input');
+                    input?.focus();
+                  }, 50);
+                }
+              }}
+              className="absolute right-[-0.19px] size-[29.312px] top-[3.45px] transition-all hover:scale-110 active:scale-95 cursor-pointer"
+            >
+              <div className={`backdrop-blur-sm rounded-full size-full flex items-center justify-center border border-white/20 shadow-lg transition-all ${
+                isAdding ? 'bg-[rgba(226,14,0,0.8)] rotate-45' : 'bg-[rgba(226,14,0,0.6)]'
+              }`}>
                 <svg className="w-4 h-4 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
                 </svg>
               </div>
-            </div>
+            </button>
           </div>
 
           {/* Separator */}
@@ -63,6 +88,43 @@ export function ReminderWidget() {
         {/* Task List Container */}
         <div className="flex-1 overflow-y-auto w-full custom-scrollbar pr-1">
           <div className="space-y-[1.724px]">
+            {/* Add Task Input - Inline at top, Apple-style */}
+            {isAdding && (
+              <div className="transition-all duration-200 ease-in-out">
+                <div className="flex items-center gap-[8.621px] py-[6.897px] px-[5.173px] rounded-[8.621px] hover:bg-white/5">
+                  {/* Empty checkbox space for alignment */}
+                  <div className="flex-shrink-0 size-[17.242px]" />
+                  
+                  {/* Input field styled like a task */}
+                  <input
+                    id="new-reminder-input"
+                    type="text"
+                    value={newTaskText}
+                    onChange={(e) => setNewTaskText(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && newTaskText.trim()) {
+                        addTask();
+                      } else if (e.key === 'Escape') {
+                        setIsAdding(false);
+                        setNewTaskText('');
+                      }
+                    }}
+                    onBlur={() => {
+                      if (!newTaskText.trim()) {
+                        setIsAdding(false);
+                        setNewTaskText('');
+                      }
+                    }}
+                    placeholder="New reminder"
+                    autoFocus
+                    className="flex-1 font-['SF_Pro_Text',sans-serif] text-[12.932px] leading-[17.242px] bg-transparent text-white placeholder:text-white/40 focus:outline-none border-none drop-shadow-md"
+                    style={{ border: 'none', outline: 'none' }}
+                  />
+                </div>
+                <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mx-[5.173px]" />
+              </div>
+            )}
+            
             {tasks.map((task, index) => (
               <div key={task.id} className="group">
                 <div className="flex items-center gap-[8.621px] py-[6.897px] px-[5.173px] rounded-[8.621px] transition-all hover:bg-white/5">

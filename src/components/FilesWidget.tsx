@@ -3,7 +3,11 @@ import ClincFile from "../imports/File2-16-4190";
 import GoZotGoFile from "../imports/File3";
 import ComingSoonFile from "../imports/File4";
 
-export function FilesWidget() {
+interface FilesWidgetProps {
+  onSkintelClick?: () => void;
+}
+
+export function FilesWidget({ onSkintelClick }: FilesWidgetProps) {
   return (
     <div className="relative w-full h-full rounded-[26.318px] overflow-hidden shadow-[0px_3.448px_3.448px_0px_rgba(0,0,0,0.25)]">
       {/* Glassmorphism Background */}
@@ -12,7 +16,7 @@ export function FilesWidget() {
       {/* Projects Grid - 2x2 layout */}
       <div className="relative grid grid-cols-2 gap-[10px] p-[9.57px] h-full">
         {/* Top Left: Skintel - Using exact Figma import */}
-        <File2 />
+        <File2 onClick={onSkintelClick} />
 
         {/* Top Right: Clinc - Using exact Figma import */}
         <ClincFile />

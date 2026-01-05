@@ -1,10 +1,33 @@
+import { useState } from 'react';
 import imgMap from 'figma:asset/321d246a214b9fe043e9a1d7ce50d532371d5969.png';
 import imgContactPhoto from 'figma:asset/c9c6e0d8191cc1583f6734e4f0cf3bb84983d05a.png';
 
 export function LocationWidget() {
+  const [isFlipped, setIsFlipped] = useState(false);
+
   return (
-    <div className="bg-[rgba(0,0,0,0)] h-[136.215px] relative rounded-[14.656px] w-[291.396px]">
-      <div className="absolute backdrop-blur-[50px] h-[136.215px] left-0 overflow-clip right-0 rounded-[18.967px] top-0 border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
+    <div 
+      className="bg-[rgba(0,0,0,0)] h-[136.215px] relative rounded-[14.656px] w-[291.396px]"
+      style={{ perspective: '1000px' }}
+      onMouseEnter={() => setIsFlipped(true)}
+      onMouseLeave={() => setIsFlipped(false)}
+    >
+      <div 
+        className="absolute h-[136.215px] left-0 right-0 rounded-[18.967px] top-0 w-full"
+        style={{ 
+          transformStyle: 'preserve-3d',
+          transform: isFlipped ? 'rotateX(180deg)' : 'rotateX(0deg)',
+          transition: 'transform 0.7s ease-in-out'
+        }}
+      >
+        {/* Front Face */}
+        <div 
+          className="absolute inset-0 backdrop-blur-[50px] overflow-hidden rounded-[18.967px] border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]"
+          style={{ 
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden'
+          }}
+        >
         {/* Map Background */}
         <div className="absolute h-[158px] left-0 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-0 w-[338px]">
           <div className="absolute inset-0 opacity-[0.85] overflow-hidden pointer-events-none">
@@ -21,7 +44,7 @@ export function LocationWidget() {
         <div className="absolute blur-[0.35px] filter h-[56px] left-0 top-[102px] w-[338px]" />
 
         {/* Location Overlay Circle */}
-        <div className="absolute bottom-[48.28px] left-[122.42px] size-[28.45px]">
+        <div className="absolute bottom-[48.28px] size-[28.45px]" style={{ left: 'calc(100% - 140px)' }}>
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 29 29">
             <g>
               <circle cx="14.225" cy="14.225" fill="#2a5d45" r="14.225" style={{ fillOpacity: 1 }} />
@@ -31,8 +54,8 @@ export function LocationWidget() {
         </div>
 
         {/* Contact Pin/Avatar */}
-        <div className="absolute left-[127.78px] size-[17.242px] top-[54.83px]">
-          <div className="absolute inset-[-50%]">
+        <div className="absolute size-[17.242px] top-[54.83px] flex items-center justify-center" style={{ left: 'calc(100% - 135px)', transform: 'scale(4)', transformOrigin: 'center' }}>
+          <div className="absolute inset-[-50%]" style={{ transform: 'scale(0.35) translateY(5%)', transformOrigin: 'center' }}>
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26 26">
               <g filter="url(#filter0_d_contact)">
                 <circle cx="12.9316" cy="12.9316" fill="url(#paint0_linear_contact)" r="8.62119" shapeRendering="crispEdges" />
@@ -55,11 +78,11 @@ export function LocationWidget() {
               </defs>
             </svg>
           </div>
-          <div className="absolute inset-[17.39%]">
-            <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-full">
+          <div className="absolute" style={{ transform: 'scale(0.6)', transformOrigin: 'center', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="overflow-hidden pointer-events-none rounded-full" style={{ width: '65%', height: '65%' }}>
               <img 
                 alt="Contact" 
-                className="absolute h-[118.36%] left-[-7.22%] max-w-none top-[-13.13%] w-[116.67%]" 
+                className="h-full w-full object-cover rounded-full" 
                 src={imgContactPhoto} 
               />
             </div>
@@ -74,6 +97,22 @@ export function LocationWidget() {
         {/* Address Text - Bottom */}
         <div className="absolute flex flex-col font-['SF_Pro_Text',sans-serif] h-[8.621px] justify-center leading-[13.794px] left-[13.79px] not-italic overflow-ellipsis overflow-hidden text-[12.07px] text-nowrap text-white top-[102.59px] tracking-[-0.2586px] translate-y-[-50%] w-[263.808px]">
           <p className="drop-shadow-lg">Maru Coffee</p>
+        </div>
+        </div>
+
+        {/* Back Face */}
+        <div 
+          className="absolute inset-0 flex items-center justify-center rounded-[18.967px] border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] overflow-hidden"
+          style={{ 
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            transform: 'rotateX(180deg)',
+            background: '#000000'
+          }}
+        >
+          <p className="font-['SF_Pro_Text',sans-serif] text-white text-[13px] text-center px-4 leading-relaxed drop-shadow-lg">
+            My favorite coffee shop where my love for design began.
+          </p>
         </div>
       </div>
     </div>

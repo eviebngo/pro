@@ -1527,9 +1527,17 @@ function TextContainer() {
   return <div className="absolute h-[19px] left-[300.38px] top-[30.57px] w-px" data-name="Text Container" />;
 }
 
-export default function File() {
+interface FileProps {
+  onClick?: () => void;
+}
+
+export default function File({ onClick }: FileProps) {
   return (
-    <div className="relative rounded-[16.748px] size-full" data-name="File 2">
+    <div 
+      className="relative rounded-[16.748px] size-full cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98]" 
+      data-name="File 2"
+      onClick={onClick}
+    >
       {/* Glassmorphism background - matching ProfileWidget */}
       <div className="absolute inset-0 backdrop-blur-[50px] bg-[rgba(28,28,30,0.29)] rounded-[16.748px] border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]" />
       <Frame19 />
