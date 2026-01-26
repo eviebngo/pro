@@ -9,9 +9,9 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/skintel" element={<SkintelCaseStudy />} />
-      </Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/skintel" element={<SkintelCaseStudy />} />
+    </Routes>
     </AnimatePresence>
   );
 }

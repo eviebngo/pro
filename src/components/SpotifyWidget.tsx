@@ -142,6 +142,13 @@ export function SpotifyWidget() {
       <audio ref={audioRef} src={currentSong.audioFile} preload="metadata" />
       
       <div className="absolute backdrop-blur-[50px] bg-gradient-to-b content-stretch flex from-[rgba(68,77,86,0.17)] gap-[8px] h-[115.524px] items-start left-[calc(50%+0.43px)] overflow-visible px-[11.699px] py-[9.505px] rounded-[16.086px] to-[rgba(67,77,86,0.17)] top-0 translate-x-[-50%] w-[247.133px] border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
+        {/* Hover over me! note */}
+        <div className="absolute top-1 right-1 z-20 opacity-60 hover:opacity-100 transition-opacity">
+          <p className="font-['SF_Pro_Text',sans-serif] text-[6px] text-white/80 italic drop-shadow-md">
+            Hover over me!
+          </p>
+        </div>
+        
         {/* Album Art */}
         <div className="relative rounded-[4.387px] shrink-0 size-[96.514px]">
           <img 
@@ -203,7 +210,7 @@ export function SpotifyWidget() {
             </div>
 
             {/* Spotify-style Playback Controls - Previous, Play/Pause, Next */}
-            <div className="absolute flex gap-[10px] items-center" style={{ bottom: '12px', left: '135px', zIndex: 10 }}>
+            <div className="absolute flex gap-[8px] items-center" style={{ bottom: '12px', left: '115px', zIndex: 10 }}>
               {/* Previous Button - Gray */}
               <button 
                 onClick={handlePrevious}

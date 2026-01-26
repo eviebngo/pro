@@ -1,16 +1,17 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import caseStudyImage from '../assets/skintel case study.png';
-import goZotGoThumbnail from '../assets/go zot go thumbnail.png';
+// Note: Replace this with the "Do, don't." case study image when available
+import caseStudyImage from '../assets/Go, Zot, Go!.png';
+import skintelThumbnail from '../assets/Skintel thumbnail.png';
 import clincThumbnail from '../assets/clinc thumbnail.png';
 
-interface SkintelModalProps {
+interface GoZotGoModalProps {
   isOpen: boolean;
   onClose: () => void;
   onEdit?: () => void;
-  onGoZotGoClick?: () => void;
+  onSkintelClick?: () => void;
 }
 
-export function SkintelModal({ isOpen, onClose, onEdit, onGoZotGoClick }: SkintelModalProps) {
+export function GoZotGoModal({ isOpen, onClose, onEdit, onSkintelClick }: GoZotGoModalProps) {
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
@@ -234,7 +235,7 @@ export function SkintelModal({ isOpen, onClose, onEdit, onGoZotGoClick }: Skinte
                     {/* Image - allows scrolling, cropped 20px from top, flush with bottom */}
                     <img
                       src={caseStudyImage}
-                      alt="Skintel Case Study"
+                      alt="Go, Zot, Go! Case Study"
                       style={{
                         width: '100%',
                         height: 'auto',
@@ -263,9 +264,6 @@ export function SkintelModal({ isOpen, onClose, onEdit, onGoZotGoClick }: Skinte
                       paddingTop: '60px',
                       background: '#ffffff',
                       display: 'block',
-                      pointerEvents: 'auto',
-                      position: 'relative',
-                      zIndex: 50,
                     }}
                   >
                     <h3
@@ -288,17 +286,15 @@ export function SkintelModal({ isOpen, onClose, onEdit, onGoZotGoClick }: Skinte
                         gap: '40px',
                         maxWidth: '1000px',
                         margin: '0 auto',
-                        pointerEvents: 'auto',
-                        position: 'relative',
-                        zIndex: 100,
                       }}
                     >
-                      {/* Go, Zot, Go! Preview */}
+                      {/* Skintel Preview */}
                       <motion.div
+                        className="cursor-pointer overflow-hidden"
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          onGoZotGoClick?.();
+                          onSkintelClick?.();
                         }}
                         style={{
                           height: '280px',
@@ -319,8 +315,8 @@ export function SkintelModal({ isOpen, onClose, onEdit, onGoZotGoClick }: Skinte
                         transition={{ duration: 0.2 }}
                       >
                         <img
-                          src={goZotGoThumbnail}
-                          alt="Go, Zot, Go! Navigation Application"
+                          src={skintelThumbnail}
+                          alt="Skintel Case Study"
                           style={{
                             width: '100%',
                             height: '100%',

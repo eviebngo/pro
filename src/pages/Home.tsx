@@ -9,8 +9,9 @@ import { QuoteWidget } from '../components/QuoteWidget';
 import { Navbar } from '../components/Navbar';
 import { BottomDock } from '../components/BottomDock';
 import { LoadingAnimation } from '../components/LoadingAnimation';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { SkintelModal } from '../components/SkintelModal';
+import { GoZotGoModal } from '../components/GoZotGoModal';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import wallpaper from '../assets/755813083720c0adbc5183e6dde8189c.jpg';
 
@@ -19,11 +20,49 @@ export function Home() {
     // Check if loading animation has already been shown in this session
     return sessionStorage.getItem('portfolioLoaded') === 'true';
   });
-  const navigate = useNavigate();
+  const [isSkintelModalOpen, setIsSkintelModalOpen] = useState(false);
+  const [isGoZotGoModalOpen, setIsGoZotGoModalOpen] = useState(false);
+  const modalSwitchTimeoutRef = useRef<number | null>(null);
 
   const handleLoadingComplete = () => {
     setIsLoaded(true);
     sessionStorage.setItem('portfolioLoaded', 'true');
+  };
+
+  const handleSkintelClick = () => {
+    setIsSkintelModalOpen(true);
+  };
+
+  const handleCloseSkintelModal = () => {
+    setIsSkintelModalOpen(false);
+  };
+
+  const handleGoZotGoClick = () => {
+    setIsGoZotGoModalOpen(true);
+  };
+
+  const handleCloseGoZotGoModal = () => {
+    setIsGoZotGoModalOpen(false);
+  };
+
+  const scheduleModalOpen = (openFn: () => void) => {
+    if (modalSwitchTimeoutRef.current) {
+      window.clearTimeout(modalSwitchTimeoutRef.current);
+    }
+    // Match modal exit duration for smoother transitions
+    modalSwitchTimeoutRef.current = window.setTimeout(() => {
+      openFn();
+    }, 450);
+  };
+
+  const handleSwitchToGoZotGo = () => {
+    setIsSkintelModalOpen(false);
+    scheduleModalOpen(() => setIsGoZotGoModalOpen(true));
+  };
+
+  const handleSwitchToSkintel = () => {
+    setIsGoZotGoModalOpen(false);
+    scheduleModalOpen(() => setIsSkintelModalOpen(true));
   };
 
   return (
@@ -79,7 +118,7 @@ export function Home() {
 
         {/* Files/Projects Widget - Below Profile (bento grid) */}
         <div style={{ position: 'absolute', top: '175px', left: '-100px', width: '404.334px', height: '189.008px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <FilesWidget onSkintelClick={() => navigate('/skintel')} />
+          <FilesWidget onSkintelClick={handleSkintelClick} onGoZotGoClick={handleGoZotGoClick} />
         </div>
 
         {/* Music/Spotify Widget - Below Files/Projects widget */}
@@ -118,6 +157,28 @@ export function Home() {
       >
         <BottomDock />
       </div>
+
+      {/* Skintel Modal */}
+      <SkintelModal 
+        isOpen={isSkintelModalOpen} 
+        onClose={handleCloseSkintelModal}
+        onEdit={() => {
+          // Edit functionality can be added here
+          console.log('Edit clicked');
+        }}
+        onGoZotGoClick={handleSwitchToGoZotGo}
+      />
+
+      {/* Go Zot Go Modal */}
+      <GoZotGoModal 
+        isOpen={isGoZotGoModalOpen} 
+        onClose={handleCloseGoZotGoModal}
+        onEdit={() => {
+          // Edit functionality can be added here
+          console.log('Edit clicked');
+        }}
+        onSkintelClick={handleSwitchToSkintel}
+      />
     </motion.div>
   );
 }
